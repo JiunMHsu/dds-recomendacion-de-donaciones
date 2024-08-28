@@ -13,11 +13,13 @@ export class ServerConfig {
     }
 
     public getEnviroment(key: string): string | undefined {
-        return process.env[key];
+        const value = process.env[key];
+        return value ? value : undefined;
     }
 
-    public getNumberEnv(key: string): number {
-        return Number(this.getEnviroment(key));
+    public getNumberEnv(key: string): number | undefined {
+        const value = this.getEnviroment(key);
+        return value ? parseInt(value) : undefined;
     }
 
     public getEnvPath(nodeEnv: string): string {

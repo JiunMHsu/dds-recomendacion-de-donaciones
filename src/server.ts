@@ -1,6 +1,7 @@
-import express, { Router } from 'express';
+import express from 'express';
 import cors from 'cors';
-import { ServerConfig } from '../config/config';
+import { ServerConfig } from './config/config';
+import { TestRouter } from './test/test.router';
 
 class ServerBootstrap {
     private app: express.Application;
@@ -27,8 +28,8 @@ class ServerBootstrap {
     }
 
     private routes(): express.Router[] {
-        const routers: Router[] = [];
-        return [];
+        const routers = [new TestRouter()];
+        return routers.map(router => router.router);
     }
 
     private listen(): void {
