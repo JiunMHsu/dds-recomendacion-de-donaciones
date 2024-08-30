@@ -1,6 +1,6 @@
 import express from 'express';
 import cors from 'cors';
-import { ServerConfig } from './config/config';
+import { ServerConfig } from './config/server.config';
 import { TestRouter } from './test/test.router';
 
 class ServerBootstrap {

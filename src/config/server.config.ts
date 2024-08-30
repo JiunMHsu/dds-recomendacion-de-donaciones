@@ -32,9 +32,7 @@ export class ServerConfig {
             port: this.getNumberEnv('DB_PORT') ?? 3306,
             user: this.getEnviroment('DB_USER') ?? 'root',
             password: this.getEnviroment('DB_PASSWORD') ?? 'root',
-            name:
-                this.getEnviroment('DB_DATABASE') ??
-                'recomendaciondedonaciones',
+            name: this.getEnviroment('DB_NAME') ?? 'recomendaciondedonaciones',
         };
     }
 }
