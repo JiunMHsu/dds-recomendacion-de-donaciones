@@ -17,11 +17,11 @@ La ONG a cargo del sistema quiere extender la posibilidad de donaciones a otras 
    {
       "puntosRecomedados": [
          {
-            "nombre": string,
-            "localidad": string,
-            "provincia": string,
-            "calle": string,
-            "altura": number
+            "nombre": "string",
+            "localidad": "string",
+            "provincia": "string",
+            "calle": "string",
+            "altura": "number"
          },
          {}
       ]
