@@ -12,3 +12,18 @@ La ONG a cargo del sistema quiere extender la posibilidad de donaciones a otras 
 ```
 
 ## Response Schema
+
+```json
+   {
+      "puntosRecomedados": [
+         {
+            "nombre": string,
+            "localidad": string,
+            "provincia": string,
+            "calle": string,
+            "altura": number
+         },
+         {}
+      ]
+   }
+```
