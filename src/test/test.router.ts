@@ -7,7 +7,6 @@ export class TestRouter extends BaseRouter<TestController> {
     }
 
     public routes(): void {
-        this.router.get('/test', this.controller.test);
-        this.router.get('/test/json', this.controller.testJson);
+        this.router.get('/', this.controller.test);
     }
 }

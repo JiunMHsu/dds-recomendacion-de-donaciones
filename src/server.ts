@@ -1,6 +1,7 @@
-import express from 'express';
+import express, { Request, Response, Router } from 'express';
 import cors from 'cors';
 import { ServerConfig } from './config/server.config';
+import { PuntoDonacionRouter } from './puntoDonacion/puntoDonacion.router';
 import { TestRouter } from './test/test.router';
 
 class ServerBootstrap {
@@ -22,14 +23,13 @@ class ServerBootstrap {
         this.app.use(express.json());
         this.app.use(express.urlencoded({ extended: true }));
         this.app.use(cors());
-        this.app.use('/api', this.routes());
+        this.app.use('/test', new TestRouter().router);
+        this.app.use('/api/puntoDonacion', new PuntoDonacionRouter().router);
+        this.app.use((_req, res) => {
+            res.status(404).json({ message: 'not found' });
+        });
 
         this.listen();
-    }
-
-    private routes(): express.Router[] {
-        const routers = [new TestRouter()];
-        return routers.map(router => router.router);
     }
 
     private listen(): void {
