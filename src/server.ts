@@ -1,8 +1,9 @@
-import express, { Request, Response, Router } from 'express';
+import express from 'express';
 import cors from 'cors';
 import { ServerConfig } from './config/server.config';
 import { PuntoDonacionRouter } from './puntoDonacion/puntoDonacion.router';
 import { TestRouter } from './test/test.router';
+import { AppDataSource } from './db/data.source';
 
 class ServerBootstrap {
     private app: express.Application;
@@ -23,6 +24,9 @@ class ServerBootstrap {
         this.app.use(express.json());
         this.app.use(express.urlencoded({ extended: true }));
         this.app.use(cors());
+
+        // AppDataSource.initialize();
+
         this.app.use('/test', new TestRouter().router);
         this.app.use('/api/puntoDonacion', new PuntoDonacionRouter().router);
         this.app.use((_req, res) => {

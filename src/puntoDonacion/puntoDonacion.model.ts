@@ -1,4 +1,10 @@
-import { Entity, PrimaryGeneratedColumn, Column, Table } from 'typeorm';
+import {
+    Entity,
+    PrimaryGeneratedColumn,
+    Column,
+    ManyToOne,
+    JoinColumn,
+} from 'typeorm';
 
 @Entity('provincia')
 export class Provincia {
@@ -26,16 +32,20 @@ export class Localidad {
 
 @Entity('puntoDonacion')
 export class PuntoDonacion {
-    @PrimaryGeneratedColumn("uuid")
+    @PrimaryGeneratedColumn('uuid')
     id_puntoDonacion!: number;
 
     @Column()
     nombre!: string;
 
-    @Column("id_localidad")
+    // @Column('id_localidad')
+    @ManyToOne(() => Localidad)
+    @JoinColumn({ name: 'id_localidad' })
     localidad!: Localidad;
 
-    @Column("id_provincia")
+    // @Column('id_provincia')
+    @ManyToOne(() => Provincia)
+    @JoinColumn({ name: 'id_provincia' })
     provincia!: Provincia;
 
     @Column()

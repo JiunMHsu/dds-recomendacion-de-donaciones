@@ -1,6 +1,6 @@
 import { DataSource } from 'typeorm';
 import { ServerConfig } from '../config/server.config';
-import { PuntoDonacion } from '../puntoDonacion/puntoDonacion.model';
+import { Localidad, Provincia, PuntoDonacion } from '../puntoDonacion/puntoDonacion.model';
 
 const config = new ServerConfig();
 
@@ -13,6 +13,5 @@ export const AppDataSource = new DataSource({
     database: config.database.name,
     synchronize: false,
     logging: true,
-    entities: [PuntoDonacion], 
+    entities: [PuntoDonacion, Localidad, Provincia],
 });
-
