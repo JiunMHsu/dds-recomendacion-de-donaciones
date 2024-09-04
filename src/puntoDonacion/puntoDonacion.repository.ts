@@ -10,21 +10,20 @@ export class RepositorioDePuntosDonacion {
         this.repository = getRepository(Recomendacion);
     }
 
-    async guardar(recomendacion: Recomendacion): Promise<Recomendacion> {
-        return await this.repository.save(recomendacion); // INSERT
+    async guardar(recomendacion: Recomendacion): Promise<Recomendacion> { // INSERT
+        return await this.repository.save(recomendacion); 
     }
 
-    async modificar(recomendacion: Recomendacion): Promise<Recomendacion> {
-        return await this.repository.save(recomendacion); // UPDATE
+    async modificar(recomendacion: Recomendacion): Promise<Recomendacion> { // UPDATE
+        return await this.repository.save(recomendacion); 
     }
 
-    async eliminarFisico(recomendacion: Recomendacion): Promise<void> {
-        await this.repository.remove(recomendacion); // DELETE
+    async eliminarFisico(recomendacion: Recomendacion): Promise<void> { // DELETE
+        await this.repository.remove(recomendacion); 
     }
 
-    async eliminar(recomendacion: Recomendacion): Promise<Recomendacion> {
-        recomendacion.activo = false;
-        return await this.repository.save(recomendacion); // Soft delete
+    async eliminar(recomendacion: Recomendacion): Promise<Recomendacion> { //SOFT DELETE
+        return await this.repository.save(recomendacion); 
     }
 
     async buscarPorLocalidad(nombre: string): Promise<Recomendacion[]> {
