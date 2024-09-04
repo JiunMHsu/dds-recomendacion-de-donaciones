@@ -10,10 +10,11 @@ export interface Localidad {
 }
 
 export interface PuntoDonacion {
+    
     nombre: string;
     localidad: Localidad;
-    latitud: Number;
-    longitud: Number;
+    latitud: String;
+    longitud: String;
     calle: string;
     altura: Number;
 }
