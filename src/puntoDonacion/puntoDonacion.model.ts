@@ -1,11 +1,18 @@
-import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, Table } from 'typeorm';
 
-export interface Provincia {
-    nombre: string;
-    etiqueta: string;
+@Entity('provincia')
+export class Provincia {
+    @PrimaryGeneratedColumn()
+    id_provincia!: number;
+
+    @Column()
+    nombre!: string;
+
+    @Column()
+    etiqueta!: string;
 }
 
-@Entity()
+@Entity('localidad')
 export class Localidad {
     @PrimaryGeneratedColumn()
     id_localidad!: number;
@@ -14,25 +21,22 @@ export class Localidad {
     nombre!: string;
 
     @Column()
-    localidad!: Localidad;
-
-    @Column()
-    provincia!: Provincia;
-
-    @Column()
     etiqueta!: string;
 }
 
-@Entity()
+@Entity('puntoDonacion')
 export class PuntoDonacion {
-    @PrimaryGeneratedColumn()
-    id_recomendacion!: number;
+    @PrimaryGeneratedColumn("uuid")
+    id_puntoDonacion!: number;
 
     @Column()
     nombre!: string;
 
-    @Column()
+    @Column("id_localidad")
     localidad!: Localidad;
+
+    @Column("id_provincia")
+    provincia!: Provincia;
 
     @Column()
     calle!: string;
