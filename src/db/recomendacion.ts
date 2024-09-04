@@ -1,14 +1,13 @@
 import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
+import { PuntoDonacion } from '../puntoDonacion/puntoDonacion.model';
+import { Localidad } from '../puntoDonacion/puntoDonacion.model';
+import { Provincia } from '../puntoDonacion/puntoDonacion.model';
 
-export interface Provincia {
-    nombre: string;
-    etiqueta: string;
-}
 
 @Entity()
-export class Localidad {
+export class Recomendacion implements PuntoDonacion {
     @PrimaryGeneratedColumn()
-    id_localidad!: number;
+    id_recomendacion!: number;
 
     @Column()
     nombre!: string;
@@ -18,21 +17,6 @@ export class Localidad {
 
     @Column()
     provincia!: Provincia;
-
-    @Column()
-    etiqueta!: string;
-}
-
-@Entity()
-export class PuntoDonacion {
-    @PrimaryGeneratedColumn()
-    id_recomendacion!: number;
-
-    @Column()
-    nombre!: string;
-
-    @Column()
-    localidad!: Localidad;
 
     @Column()
     calle!: string;
