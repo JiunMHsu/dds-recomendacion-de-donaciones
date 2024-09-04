@@ -1,6 +1,6 @@
 import { DataSource } from 'typeorm';
 import { ServerConfig } from '../config/server.config';
-import { Recomendacion } from '../db/recomendacion';
+import { Recomendacion } from './recomendacion';
 
 const config = new ServerConfig();
 
