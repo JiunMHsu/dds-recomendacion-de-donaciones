@@ -39,11 +39,11 @@ export class PuntoDonacion {
     nombre!: string;
 
     @ManyToOne(() => Localidad)
-    @JoinColumn({ name: 'id_localidad' })
+    @JoinColumn({ name: 'localidad_id' })
     localidad!: Localidad;
 
     @ManyToOne(() => Provincia)
-    @JoinColumn({ name: 'id_provincia' })
+    @JoinColumn({ name: 'provincia_id' })
     provincia!: Provincia;
 
     @Column('varchar', { length: 100 })
