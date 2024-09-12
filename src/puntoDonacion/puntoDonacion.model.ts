@@ -6,57 +6,55 @@ import {
     JoinColumn,
 } from 'typeorm';
 
-@Entity('provincia')
+@Entity({ name: 'provincia' })
 export class Provincia {
     @PrimaryGeneratedColumn()
-    id_provincia!: number;
+    id!: number;
 
-    @Column()
+    @Column('varchar', { length: 100 })
     nombre!: string;
 
-    @Column()
+    @Column('varchar', { length: 100 })
     etiqueta!: string;
 }
 
-@Entity('localidad')
+@Entity({ name: 'localidad' })
 export class Localidad {
     @PrimaryGeneratedColumn()
-    id_localidad!: number;
+    id!: number;
 
-    @Column()
+    @Column('varchar', { length: 100 })
     nombre!: string;
 
-    @Column()
+    @Column('varchar', { length: 100 })
     etiqueta!: string;
 }
 
-@Entity('puntoDonacion')
+@Entity({ name: 'punto_donacion' })
 export class PuntoDonacion {
     @PrimaryGeneratedColumn('uuid')
-    id_puntoDonacion!: number;
+    id!: string;
 
-    @Column()
+    @Column('varchar', { length: 100 })
     nombre!: string;
 
-    // @Column('id_localidad')
     @ManyToOne(() => Localidad)
     @JoinColumn({ name: 'id_localidad' })
     localidad!: Localidad;
 
-    // @Column('id_provincia')
     @ManyToOne(() => Provincia)
     @JoinColumn({ name: 'id_provincia' })
     provincia!: Provincia;
 
-    @Column()
+    @Column('varchar', { length: 100 })
     calle!: string;
 
-    @Column()
+    @Column('int')
     altura!: number;
 
-    @Column()
+    @Column('varchar', { length: 255 })
     latitud!: string;
 
-    @Column()
+    @Column('varchar', { length: 255 })
     longitud!: string;
 }

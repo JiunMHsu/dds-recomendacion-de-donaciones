@@ -1,6 +1,6 @@
 import { Repository } from 'typeorm';
 import { PuntoDonacion } from './puntoDonacion.model';
-import { AppDataSource } from '../db/data.source';
+import { AppDataSource } from '../db/datasource';
 
 export class PuntoDonacionRepository {
     private repository: Repository<PuntoDonacion>;

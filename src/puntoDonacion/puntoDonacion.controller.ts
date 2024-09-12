@@ -2,18 +2,17 @@ import { Request, Response } from 'express';
 import { PuntoDonacionRepository } from './puntoDonacion.repository';
 
 export class PuntoDonacionController {
-    private repository = new PuntoDonacionRepository();
-
     public async getPuntoDonacion(req: Request, res: Response): Promise<void> {
         try {
+            const repository = new PuntoDonacionRepository();
             const provincia = req.params.provincia;
             const localidad = req.params.localidad;
 
             console.log(provincia, localidad);
 
-            await this.repository.test(provincia, localidad);
+            await repository.test(provincia, localidad);
 
-            const puntosRecomendados = await this.repository.buscarTodos();
+            const puntosRecomendados = await repository.buscarTodos();
             // await this.repository.buscarPorProvinciaYLocalidad(
             //     provincia,
             //     localidad,

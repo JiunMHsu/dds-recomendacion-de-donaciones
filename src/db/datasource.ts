@@ -1,6 +1,11 @@
 import { DataSource } from 'typeorm';
+import { SnakeNamingStrategy } from 'typeorm-naming-strategies';
 import { ServerConfig } from '../config/server.config';
-import { Localidad, Provincia, PuntoDonacion } from '../puntoDonacion/puntoDonacion.model';
+import {
+    Localidad,
+    Provincia,
+    PuntoDonacion,
+} from '../puntoDonacion/puntoDonacion.model';
 
 const config = new ServerConfig();
 
@@ -11,7 +16,8 @@ export const AppDataSource = new DataSource({
     username: config.database.user,
     password: config.database.password,
     database: config.database.name,
-    synchronize: false,
-    logging: true,
     entities: [PuntoDonacion, Localidad, Provincia],
+    logging: true,
+    synchronize: true,
+    namingStrategy: new SnakeNamingStrategy(),
 });

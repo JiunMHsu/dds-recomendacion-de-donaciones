@@ -1,46 +1,41 @@
 import express from 'express';
+import morgan from 'morgan';
 import cors from 'cors';
 import { ServerConfig } from './config/server.config';
 import { PuntoDonacionRouter } from './puntoDonacion/puntoDonacion.router';
 import { TestRouter } from './test/test.router';
-import { AppDataSource } from './db/data.source';
+import { AppDataSource } from './db/datasource';
 
-class ServerBootstrap {
-    private app: express.Application;
-    private config: ServerConfig;
-    private host: string;
-    private port: number;
+async function main() {
+    try {
+        const app = express();
+        const config = new ServerConfig();
 
-    constructor() {
-        this.app = express();
-        this.config = new ServerConfig();
+        const host = config.getEnviroment('HOST') ?? '127.0.0.1';
+        const port = config.getNumberEnv('PORT') ?? 5050;
 
-        this.host = this.config.getEnviroment('HOST') ?? '127.0.0.1';
-        this.port = this.config.getNumberEnv('PORT') ?? 5050;
-
-        this.app.disable('x-powered-by');
+        app.disable('x-powered-by');
 
         // seteando middlewares
-        this.app.use(express.json());
-        this.app.use(express.urlencoded({ extended: true }));
-        this.app.use(cors());
+        app.use(express.json());
+        app.use(express.urlencoded({ extended: true }));
+        app.use(morgan('dev'));
+        app.use(cors());
 
-        // AppDataSource.initialize();
+        await AppDataSource.initialize();
 
-        this.app.use('/test', new TestRouter().router);
-        this.app.use('/api/puntoDonacion', new PuntoDonacionRouter().router);
-        this.app.use((_req, res) => {
+        app.use('/test', new TestRouter().router);
+        app.use('/api/puntoDonacion', new PuntoDonacionRouter().router);
+        app.use((_req, res) => {
             res.status(404).json({ message: 'not found' });
         });
 
-        this.listen();
-    }
-
-    private listen(): void {
-        this.app.listen(this.port, () => {
-            console.log(`server listening on http://${this.host}:${this.port}`);
+        app.listen(port, () => {
+            console.log(`server listening on http://${host}:${port}`);
         });
+    } catch (error) {
+        console.error(error);
     }
 }
 
-new ServerBootstrap();
+main();
