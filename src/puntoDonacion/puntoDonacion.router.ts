@@ -1,16 +1,10 @@
-import { Request, Response } from 'express';
-import { BaseRouter } from '../shared';
-import { PuntoDonacionController } from './puntoDonacion.controller';
+import { Router } from 'express';
+import controller from './puntoDonacion.controller';
 
-export class PuntoDonacionRouter extends BaseRouter<PuntoDonacionController> {
-    constructor() {
-        super(PuntoDonacionController);
-    }
+const router = Router();
 
-    public routes() {
-        this.router.get(
-            '/:provincia/:localidad',
-            this.controller.getPuntoDonacion,
-        );
-    }
-}
+router.get('/', controller.getAll);
+router.get('/', controller.getByProvinciaAndLocalidad);
+router.get('/:id', controller.getById);
+
+export default router;

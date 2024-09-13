@@ -5,11 +5,11 @@ import {
     Localidad,
     Provincia,
     PuntoDonacion,
-} from '../puntoDonacion/puntoDonacion.model';
+} from '../puntoDonacion/puntoDonacion.entity';
 
 const config = new ServerConfig();
 
-export const AppDataSource = new DataSource({
+const appDataSource = new DataSource({
     type: 'mysql',
     host: config.database.host,
     port: config.database.port,
@@ -21,3 +21,5 @@ export const AppDataSource = new DataSource({
     synchronize: true,
     namingStrategy: new SnakeNamingStrategy(),
 });
+
+export default appDataSource;

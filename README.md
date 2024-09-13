@@ -7,8 +7,8 @@ La ONG a cargo del sistema quiere extender la posibilidad de donaciones a otras 
 ## Endpoints
 
 ```endpoint
-   GET /api/api/lsksjdha/{provinvia}
-   GET /api/api/lsksjdha/{provinvia}/{barrioOLocalidad}
+   GET /api/puntodonacion/{id}
+   GET /api/puntodonacion?provincia={}&localidad={}
 ```
 
 ## Response Schema

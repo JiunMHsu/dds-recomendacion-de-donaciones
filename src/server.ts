@@ -2,11 +2,10 @@ import express from 'express';
 import morgan from 'morgan';
 import cors from 'cors';
 import { ServerConfig } from './config/server.config';
-import { PuntoDonacionRouter } from './puntoDonacion/puntoDonacion.router';
-import { TestRouter } from './test/test.router';
-import { AppDataSource } from './db/datasource';
+import puntoDonacionRouter from './puntoDonacion/puntoDonacion.router';
+import dataSource from './db/datasource';
 
-async function main() {
+const main = async () => {
     try {
         const app = express();
         const config = new ServerConfig();
@@ -16,16 +15,17 @@ async function main() {
 
         app.disable('x-powered-by');
 
-        // seteando middlewares
+        await dataSource.initialize();
+
         app.use(express.json());
         app.use(express.urlencoded({ extended: true }));
         app.use(morgan('dev'));
         app.use(cors());
 
-        await AppDataSource.initialize();
-
-        app.use('/test', new TestRouter().router);
-        app.use('/api/puntoDonacion', new PuntoDonacionRouter().router);
+        app.use('/test', () => {
+            console.log('test');
+        });
+        app.use('/api/puntoDonacion', puntoDonacionRouter);
         app.use((_req, res) => {
             res.status(404).json({ message: 'not found' });
         });
@@ -36,6 +36,6 @@ async function main() {
     } catch (error) {
         console.error(error);
     }
-}
+};
 
 main();
