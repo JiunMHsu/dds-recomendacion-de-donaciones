@@ -1,6 +1,12 @@
 import { Request, Response, Router } from 'express';
+import { getAllPuntoDonacion } from './puntoDonacion.repository';
 
 const router = Router();
+
+router.get('/', async (_req: Request, res: Response) => {
+    const puntosRecomendados = await getAllPuntoDonacion();
+    res.json({ message: puntosRecomendados });
+});
 
 router.get('/:id', (req: Request, res: Response) => {
     const id = req.params.id;
