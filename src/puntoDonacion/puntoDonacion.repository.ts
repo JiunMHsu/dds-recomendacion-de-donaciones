@@ -1,60 +1,44 @@
-import { Repository } from 'typeorm';
-import { PuntoDonacion } from './puntoDonacion.model';
-import { AppDataSource } from '../db/datasource';
+import { PuntoDonacion } from './puntoDonacion.entity';
+import dataSource from '../db/datasource';
 
-export class PuntoDonacionRepository {
-    private repository: Repository<PuntoDonacion>;
+const repository = dataSource.getRepository(PuntoDonacion);
 
-    constructor() {
-        this.repository = AppDataSource.getRepository(PuntoDonacion);
-    }
+export const createPuntoDonacion = async (puntoDonacion: PuntoDonacion) => {
+    return await repository.save(puntoDonacion);
+};
 
-    public async guardar(puntoDonacion: PuntoDonacion): Promise<PuntoDonacion> {
-        // INSERT
-        return await this.repository.save(puntoDonacion);
-    }
+export const updatePuntoDonacion = async (
+    id: string,
+    puntoDonacion: PuntoDonacion,
+) => {
+    return await repository.update(id, puntoDonacion);
+};
 
-    public async modificar(
-        puntoDonacion: PuntoDonacion,
-    ): Promise<PuntoDonacion> {
-        // UPDATE
-        return await this.repository.save(puntoDonacion);
-    }
+export const removePuntoDonacion = async (id: string) => {
+    return await repository.delete(id);
+};
 
-    public async eliminar(puntoDonacion: PuntoDonacion): Promise<void> {
-        await this.repository.remove(puntoDonacion);
-    }
+export const getAllPuntoDonacion = async () => {
+    return await repository.find();
+};
 
-    public async buscarPorProvinciaYLocalidad(
-        provincia: string,
-        localidad: string,
-    ): Promise<PuntoDonacion[]> {
-        console.log(provincia, localidad);
+export const getPuntoDonacionById = async (id: string) => {
+    return await repository.findOne({
+        where: {
+            id: id,
+        },
+    });
+};
 
-        return await this.repository
-            .createQueryBuilder('puntoDonacion')
-            .where('puntoDonacion.provincia.etiqueta = :provincia', {
-                provincia,
-            })
-            .andWhere('puntoDonacion.localidad.etiqueta = :localidad', {
-                localidad,
-            })
-            .getMany();
-    }
-
-    // async buscarPorLocalidad(nombre: string): Promise<PuntoDonacion[]> {
-    //     return await this.repository
-    //         .createQueryBuilder('puntoDonacion')
-    //         .where("puntoDonacion.localidad->>'nombre' = :nombre", { nombre })
-    //         .getMany();
-    // }
-
-    public async buscarTodos(): Promise<PuntoDonacion[]> {
-        console.log('asdfasf', 'asdasdas');
-        return await this.repository.find();
-    }
-
-    public async test(a: string, b: string) {
-        console.log(a, b);
-    }
-}
+export const getByProvinciaAndLocalidad = async (
+    provincia: string,
+    localidad: string,
+) => {
+    return await repository
+        .createQueryBuilder('punto_donacion')
+        .where('punto_donacion.provincia.etiqueta = :provincia', { provincia })
+        .andWhere('punto_donacion.localidad.etiqueta = :localidad', {
+            localidad,
+        })
+        .getMany();
+};
