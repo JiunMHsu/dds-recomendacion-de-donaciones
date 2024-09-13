@@ -3,26 +3,23 @@ import dataSource from '../db/datasource';
 
 const repository = dataSource.getRepository(PuntoDonacion);
 
-export const createPuntoDonacion = async (puntoDonacion: PuntoDonacion) => {
+const create = async (puntoDonacion: PuntoDonacion) => {
     return await repository.save(puntoDonacion);
 };
 
-export const updatePuntoDonacion = async (
-    id: string,
-    puntoDonacion: PuntoDonacion,
-) => {
+const update = async (id: string, puntoDonacion: PuntoDonacion) => {
     return await repository.update(id, puntoDonacion);
 };
 
-export const removePuntoDonacion = async (id: string) => {
+const remove = async (id: string) => {
     return await repository.delete(id);
 };
 
-export const getAllPuntoDonacion = async () => {
+const getAll = async () => {
     return await repository.find();
 };
 
-export const getPuntoDonacionById = async (id: string) => {
+const getById = async (id: string) => {
     return await repository.findOne({
         where: {
             id: id,
@@ -30,7 +27,7 @@ export const getPuntoDonacionById = async (id: string) => {
     });
 };
 
-export const getByProvinciaAndLocalidad = async (
+const getByProvinciaAndLocalidad = async (
     provincia: string,
     localidad: string,
 ) => {
@@ -41,4 +38,13 @@ export const getByProvinciaAndLocalidad = async (
             localidad,
         })
         .getMany();
+};
+
+export default {
+    create,
+    update,
+    remove,
+    getAll,
+    getById,
+    getByProvinciaAndLocalidad,
 };

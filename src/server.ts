@@ -17,7 +17,6 @@ const main = async () => {
 
         await dataSource.initialize();
 
-        // seteando middlewares
         app.use(express.json());
         app.use(express.urlencoded({ extended: true }));
         app.use(morgan('dev'));
