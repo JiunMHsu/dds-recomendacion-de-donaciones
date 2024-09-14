@@ -16,7 +16,21 @@ const remove = async (id: string) => {
 };
 
 const getAll = async () => {
-    return await repository.find();
+    const puntosDonacion = await repository.find({
+        relations: ['provincia', 'localidad'], // Incluye las relaciones en la consulta
+    });
+
+    // Mapea los resultados para incluir campos específicos
+    return puntosDonacion.map(punto => ({
+        id: punto.id,
+        nombre: punto.nombre,
+        calle: punto.calle,
+        altura: punto.altura,
+        latitud: punto.latitud,
+        longitud: punto.longitud,
+        provincia: punto.provincia ? punto.provincia.nombre : null, // Incluye el nombre de la provincia
+        localidad: punto.localidad ? punto.localidad.nombre : null, // Incluye el nombre de la localidad
+    }));
 };
 
 const getById = async (id: string) => {
@@ -24,6 +38,7 @@ const getById = async (id: string) => {
         where: {
             id: id,
         },
+        relations: ['provincia', 'localidad'], // Incluye las relaciones en la consulta
     });
 };
 
@@ -33,8 +48,10 @@ const getByProvinciaAndLocalidad = async (
 ) => {
     return await repository
         .createQueryBuilder('punto_donacion')
-        .where('punto_donacion.provincia.etiqueta = :provincia', { provincia })
-        .andWhere('punto_donacion.localidad.etiqueta = :localidad', {
+        .leftJoinAndSelect('punto_donacion.provincia', 'provincia')
+        .leftJoinAndSelect('punto_donacion.localidad', 'localidad')
+        .where('provincia.etiqueta = :provincia', { provincia })
+        .andWhere('localidad.etiqueta = :localidad', {
             localidad,
         })
         .getMany();

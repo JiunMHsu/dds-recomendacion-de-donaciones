@@ -58,8 +58,3 @@ export default {
     getByProvinciaAndLocalidad,
 };
 
-// Cambios en las respuestas:
-// - Uso de Stringify para convertir los obj. en strings (formato JSON claro)
-// - De esta manera evito hacer funciones auxiliares (creo q no te gustaba la idea)
-// PD: subo los cambios xlas aunque ahora m voy a poner a probarlo
-
