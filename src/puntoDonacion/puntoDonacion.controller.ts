@@ -38,6 +38,9 @@ const getByProvinciaAndLocalidad = async (
     try {
         const { provincia, localidad } = req.params;
 
+        // validar provincia y localidad
+        // puede que alguno sea undefined
+
         const puntosDonacion = await repository.getByProvinciaAndLocalidad(
             provincia,
             localidad,
