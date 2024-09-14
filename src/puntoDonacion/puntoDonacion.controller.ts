@@ -5,7 +5,7 @@ const getAll = async (_req: Request, res: Response): Promise<void> => {
     try {
         const puntosRecomendados = await repository.getAll();
 
-        res.status(200).json({ puntosRecomendados: puntosRecomendados });
+        res.status(200).send(JSON.stringify(puntosRecomendados));
     } catch (error) {
         res.status(400).json({ error: '' });
     }
@@ -25,7 +25,7 @@ const getById = async (req: Request, res: Response): Promise<void> => {
 
         const puntoDonacion = await repository.getById(uuid.toString());
 
-        res.status(200).json({ puntoDonacion: puntoDonacion });
+        res.status(200).send(JSON.stringify(puntoDonacion));
     } catch (error) {
         res.status(400).json({ error: '' });
     }
@@ -46,7 +46,7 @@ const getByProvinciaAndLocalidad = async (
             localidad,
         );
 
-        res.status(200).json({ puntosDonacion: puntosDonacion });
+        res.status(200).send(JSON.stringify(puntosDonacion));
     } catch (error) {
         res.status(400).json({ error: '' });
     }
@@ -57,3 +57,4 @@ export default {
     getById,
     getByProvinciaAndLocalidad,
 };
+
