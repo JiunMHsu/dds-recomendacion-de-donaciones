@@ -15,23 +15,22 @@ const remove = async (id: string) => {
     return await repository.delete(id);
 };
 
-const getAll = async () => {
-    const puntosDonacion = await repository.find({
-        relations: ['provincia', 'localidad'], // Incluye las relaciones en la consulta
-    });
+// const getAll = async () => {
+//     const puntosDonacion = await repository.find({
+//         relations: ['provincia', 'localidad'], // Incluye las relaciones en la consulta
+//     });
 
-    // Mapea los resultados para incluir campos específicos
-    return puntosDonacion.map(punto => ({
-        id: punto.id,
-        nombre: punto.nombre,
-        calle: punto.calle,
-        altura: punto.altura,
-        latitud: punto.latitud,
-        longitud: punto.longitud,
-        provincia: punto.provincia ? punto.provincia.nombre : null, // Incluye el nombre de la provincia
-        localidad: punto.localidad ? punto.localidad.nombre : null, // Incluye el nombre de la localidad
-    }));
-};
+//     return puntosDonacion.map(punto => ({
+//         id: punto.id,
+//         nombre: punto.nombre,
+//         calle: punto.calle,
+//         altura: punto.altura,
+//         latitud: punto.latitud,
+//         longitud: punto.longitud,
+//         provincia: punto.provincia ? punto.provincia.nombre : null, // Incluye el nombre de la provincia
+//         localidad: punto.localidad ? punto.localidad.nombre : null, // Incluye el nombre de la localidad
+//     }));
+// };
 
 const getById = async (id: string) => {
     return await repository.findOne({
@@ -51,9 +50,7 @@ const getByProvinciaAndLocalidad = async (
         .leftJoinAndSelect('punto_donacion.provincia', 'provincia')
         .leftJoinAndSelect('punto_donacion.localidad', 'localidad')
         .where('provincia.etiqueta = :provincia', { provincia })
-        .andWhere('localidad.etiqueta = :localidad', {
-            localidad,
-        })
+        .andWhere('localidad.etiqueta = :localidad', { localidad })
         .getMany();
 };
 
@@ -61,7 +58,7 @@ export default {
     create,
     update,
     remove,
-    getAll,
+    // getAll,
     getById,
     getByProvinciaAndLocalidad,
 };

@@ -26,10 +26,10 @@ const getByProvinciaAndLocalidad = async (
     res: Response,
 ): Promise<void> => {
     try {
-        const { provincia, localidad } = req.params;
-
-        // validar provincia y localidad
-        // puede que alguno sea undefined
+        const provincia =
+            typeof req.query.provincia === 'string' ? req.query.provincia : '';
+        const localidad =
+            typeof req.query.localidad === 'string' ? req.query.localidad : '';
 
         const puntosDonacion = await repository.getByProvinciaAndLocalidad(
             provincia,
