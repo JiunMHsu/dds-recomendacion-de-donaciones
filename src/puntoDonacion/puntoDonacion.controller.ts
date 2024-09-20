@@ -1,16 +1,6 @@
 import { Request, Response } from 'express';
 import repository from './puntoDonacion.repository';
 
-const getAll = async (_req: Request, res: Response): Promise<void> => {
-    try {
-        const puntosRecomendados = await repository.getAll();
-
-        res.status(200).send(JSON.stringify(puntosRecomendados));
-    } catch (error) {
-        res.status(400).json({ error: '' });
-    }
-};
-
 const getById = async (req: Request, res: Response): Promise<void> => {
     try {
         const { id } = req.params;
@@ -27,7 +17,7 @@ const getById = async (req: Request, res: Response): Promise<void> => {
 
         res.status(200).send(JSON.stringify(puntoDonacion));
     } catch (error) {
-        res.status(400).json({ error: '' });
+        res.status(400).json({ error: error });
     }
 };
 
@@ -48,13 +38,11 @@ const getByProvinciaAndLocalidad = async (
 
         res.status(200).send(JSON.stringify(puntosDonacion));
     } catch (error) {
-        res.status(400).json({ error: '' });
+        res.status(400).json({ error: error });
     }
 };
 
 export default {
-    getAll,
     getById,
     getByProvinciaAndLocalidad,
 };
-
