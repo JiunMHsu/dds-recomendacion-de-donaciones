@@ -1,6 +1,6 @@
 # Servicio Recomendación de Donación
 
-## Requerimeintos
+## Requerimientos
 
 - Node.js (v20.16). [Descargar](https://nodejs.org/en)
 - MySQL Server (Ver 8.0). [Descargar](https://dev.mysql.com/downloads/mysql/)
