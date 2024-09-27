@@ -14,7 +14,6 @@ const getById = async (req: Request, res: Response): Promise<void> => {
         }
 
         const puntoDonacion = await repository.getById(uuid.toString());
-
         res.status(200).send(JSON.stringify(puntoDonacion));
     } catch (error) {
         res.status(400).json({ error: error });
